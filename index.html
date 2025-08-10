@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AfgREN Network Engineers Workshop - Routing & Switching Basics</title>
+    <title>AfgREN Network Engineers Capacity Development Workshop</title>
     <style>
         * {
             margin: 0;
@@ -11,11 +11,21 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #F28C28;
+            --secondary: #E88C2D;
+            --body-bg: #FCF5EC;
+            --text: #1D1D1B;
+            --secondary-dark: #9F4B14;
+            --white: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #1D1D1B;
-            background-color: #FCF5EC;
+            color: var(--text);
+            background-color: var(--body-bg);
         }
 
         .container {
@@ -26,10 +36,13 @@
 
         /* Header */
         header {
-            background: linear-gradient(135deg, #F28C28 0%, #E88C2D 100%);
-            color: white;
-            padding: 2rem 0;
-            box-shadow: 0 4px 15px rgba(242, 140, 40, 0.3);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .header-content {
@@ -43,301 +56,197 @@
         .logo-section {
             display: flex;
             align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-placeholder {
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #F28C28;
-            font-size: 1.2rem;
-        }
-
-        .project-title {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .project-title h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .project-subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .funding-info {
-            background: rgba(255,255,255,0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Navigation */
-        nav {
-            background: #9F4B14;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-menu {
-            display: flex;
-            justify-content: center;
             gap: 2rem;
             flex-wrap: wrap;
         }
 
-        .nav-menu a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            font-weight: 500;
+        .logo-section img {
+            height: 40px;
+            width: auto;
+            background: var(--white);
+            padding: 5px;
+            border-radius: 5px;
         }
 
-        .nav-menu a:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
+        nav {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(242, 140, 40, 0.1), rgba(232, 140, 45, 0.1));
-            padding: 4rem 0;
+            background: linear-gradient(rgba(242, 140, 40, 0.9), rgba(232, 140, 45, 0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600"><rect fill="%23FCF5EC" width="1000" height="600"/><path fill="%23F28C28" opacity="0.1" d="M0,200 Q250,150 500,200 T1000,200 L1000,600 L0,600 Z"/></svg>');
+            color: var(--white);
             text-align: center;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
         }
 
-        .hero h2 {
-            font-size: 2.2rem;
-            color: #9F4B14;
+        .hero h1 {
+            font-size: 2.5rem;
             margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
             max-width: 800px;
-            margin: 0 auto 2rem;
-            line-height: 1.8;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .stats-grid {
+        .cta-button {
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        /* Main Content */
+        .main-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: 1fr 300px;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .content-section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .content-section h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .content-section h3 {
+            color: var(--secondary-dark);
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        .content-section ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
-            margin-top: 3rem;
+        }
+
+        .sidebar-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+
+        .sidebar-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
         }
 
         .stat-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(242, 140, 40, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            border-radius: 10px;
+            margin-bottom: 1rem;
         }
 
         .stat-number {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: bold;
-            color: #F28C28;
             display: block;
         }
 
         .stat-label {
-            color: #9F4B14;
-            font-weight: 600;
-            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
         }
 
-        /* Content Sections */
-        .section {
-            padding: 4rem 0;
-        }
-
-        .section:nth-child(even) {
-            background: rgba(242, 140, 40, 0.05);
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            color: #9F4B14;
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, #F28C28, #E88C2D);
-            display: block;
-            margin: 1rem auto;
-            border-radius: 2px;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .content-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(242, 140, 40, 0.1);
-            border-left: 5px solid #F28C28;
-        }
-
-        .content-card h3 {
-            color: #9F4B14;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-        }
-
-        .content-card ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .content-card li {
-            padding: 0.5rem 0;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .content-card li::before {
-            content: '→';
-            color: #F28C28;
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-
-        /* Budget Table */
-        .budget-table {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(242, 140, 40, 0.1);
-            margin: 2rem 0;
-        }
-
-        .budget-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .budget-table th {
-            background: linear-gradient(135deg, #F28C28, #E88C2D);
-            color: white;
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .budget-table td {
-            padding: 1rem;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .budget-table tr:hover {
-            background: rgba(242, 140, 40, 0.05);
-        }
-
-        .total-row {
-            background: rgba(242, 140, 40, 0.1);
-            font-weight: bold;
-        }
-
-        /* Partners */
-        .partners-grid {
+        /* Outcomes Grid */
+        .outcomes-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
             margin: 2rem 0;
         }
 
-        .partner-card {
-            background: white;
+        .outcome-card {
+            background: var(--white);
             padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px var(--shadow);
             text-align: center;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(242, 140, 40, 0.1);
+            border-top: 4px solid var(--primary);
             transition: transform 0.3s ease;
         }
 
-        .partner-card:hover {
-            transform: translateY(-3px);
+        .outcome-card:hover {
+            transform: translateY(-5px);
         }
 
-        .partner-logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #F28C28, #E88C2D);
+        .outcome-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
-            margin: 0 auto 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: bold;
+            margin: 0 auto 1rem auto;
+            color: var(--white);
             font-size: 1.5rem;
-        }
-
-        /* SDGs */
-        .sdg-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .sdg-card {
-            background: linear-gradient(135deg, #F28C28, #E88C2D);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            border-radius: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .sdg-card:hover {
-            transform: scale(1.05);
-        }
-
-        .sdg-number {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
         }
 
         /* Footer */
         footer {
-            background: #1D1D1B;
-            color: white;
-            padding: 3rem 0 1rem;
+            background-color: var(--secondary-dark);
+            color: var(--white);
             text-align: center;
+            padding: 2rem 0;
         }
 
         .footer-content {
@@ -347,77 +256,306 @@
             margin-bottom: 2rem;
         }
 
-        .footer-section h3 {
-            color: #F28C28;
+        .footer-section h4 {
             margin-bottom: 1rem;
+            color: var(--secondary);
         }
 
-        .disclaimer {
-            background: rgba(242, 140, 40, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-top: 2rem;
-            font-style: italic;
-            font-size: 0.9rem;
+        /* Enhanced Responsive Design */
+        
+        /* Large screens */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1400px;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
         }
 
-        /* Mobile Responsiveness */
+        /* Medium screens */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr 250px;
+                gap: 2rem;
+            }
+            
+            .outcomes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Tablets */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
                 text-align: center;
-            }
-
-            .project-title h1 {
-                font-size: 2rem;
-            }
-
-            .nav-menu {
-                flex-direction: column;
-                align-items: center;
                 gap: 1rem;
             }
 
-            .hero h2 {
-                font-size: 1.8rem;
+            .logo-section {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .logo-section img {
+                height: 35px;
             }
 
-            .section-title {
+            nav {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            nav a {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .hero h1 {
                 font-size: 2rem;
+                margin-bottom: 1rem;
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
             }
 
-            .stat-number {
-                font-size: 2rem;
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .outcomes-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+            
+            .sidebar {
+                order: -1; /* Move sidebar above main content on mobile */
             }
         }
 
-        @media (max-width: 480px) {
+        /* Small tablets and large phones */
+        @media (max-width: 640px) {
             .container {
                 padding: 0 15px;
             }
-
-            .project-title h1 {
-                font-size: 1.6rem;
+            
+            .hero {
+                padding: 2.5rem 0;
             }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
+            
+            .hero h1 {
+                font-size: 1.8rem;
             }
-
-            .budget-table {
-                overflow-x: auto;
+            
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
             }
-
-            .content-grid {
-                grid-template-columns: 1fr;
+            
+            .content-section {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .sidebar-card, .stat-card {
+                padding: 1.25rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .outcome-card {
+                padding: 1.25rem;
+            }
+            
+            .outcome-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
             }
         }
 
-        /* Animations */
+        /* Mobile phones */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+            
+            .hero p {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .content-section {
+                padding: 1.25rem;
+            }
+            
+            .content-section h2 {
+                font-size: 1.3rem;
+            }
+            
+            .content-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .logo-section {
+                gap: 0.5rem;
+            }
+
+            .logo-section img {
+                height: 28px;
+            }
+            
+            nav {
+                gap: 0.25rem;
+            }
+            
+            nav a {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.8rem;
+            }
+            
+            .sidebar-card, .stat-card {
+                padding: 1rem;
+            }
+            
+            .outcome-card {
+                padding: 1rem;
+            }
+            
+            .footer-content {
+                text-align: left;
+            }
+            
+            .footer-section h4 {
+                font-size: 1rem;
+            }
+            
+            .footer-section p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Extra small phones */
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 1.3rem;
+            }
+            
+            .logo-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .logo-section img {
+                height: 25px;
+            }
+            
+            nav {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            nav a {
+                display: block;
+                text-align: center;
+                width: 100%;
+            }
+            
+            .content-section {
+                padding: 1rem;
+            }
+            
+            .cta-button {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .cta-button:hover,
+            .outcome-card:hover,
+            nav a:hover {
+                transform: none;
+            }
+            
+            .cta-button:active {
+                transform: scale(0.98);
+            }
+            
+            nav a:active {
+                background-color: rgba(255, 255, 255, 0.3);
+            }
+            
+            .outcome-card:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Landscape phone orientation */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero {
+                padding: 1.5rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* High DPI screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .logo-section img {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+
+        /* Animation */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -429,111 +567,57 @@
             }
         }
 
-        .fade-in {
-            animation: fadeInUp 0.6s ease-out;
+        .content-section {
+            animation: fadeInUp 0.6s ease forwards;
         }
 
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
+        .outcome-card {
+            animation: fadeInUp 0.6s ease forwards;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo-section">
-                    <div class="logo-placeholder">EU</div>
-                    <div class="logo-placeholder">A@C</div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Crect fill='%23fff' width='200' height='60' rx='5'/%3E%3Ctext x='100' y='35' text-anchor='middle' fill='%23F28C28' font-size='16' font-weight='bold'%3EAsi@Connect%3C/text%3E%3C/svg%3E" alt="Asi@Connect Logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Crect fill='%23003399' width='200' height='40'/%3E%3Ccircle cx='30' cy='10' r='2' fill='%23FFCC00'/%3E%3Ccircle cx='40' cy='8' r='2' fill='%23FFCC00'/%3E%3Ccircle cx='50' cy='10' r='2' fill='%23FFCC00'/%3E%3Ccircle cx='25' cy='20' r='2' fill='%23FFCC00'/%3E%3Ccircle cx='35' cy='18' r='2' fill='%23FFCC00'/%3E%3Ccircle cx='45' cy='20' r='2' fill='%23FFCC00'/%3E%3Ccircle cx='55' cy='18' r='2' fill='%23FFCC00'/%3E%3Ccircle cx='20' cy='30' r='2' fill='%23FFCC00'/%3E%3Ccircle cx='30' cy='28' r='2' fill='%23FFCC00'/%3E%3Ccircle cx='40' cy='30' r='2' fill='%23FFCC00'/%3E%3Ccircle cx='50' cy='28' r='2' fill='%23FFCC00'/%3E%3Ccircle cx='60' cy='30' r='2' fill='%23FFCC00'/%3E%3Ctext x='100' y='55' text-anchor='middle' fill='%23003399' font-size='12' font-weight='bold'%3EEuropean Union%3C/text%3E%3C/svg%3E" alt="European Union Logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Crect fill='%23fff' width='200' height='60' rx='5'/%3E%3Ctext x='100' y='25' text-anchor='middle' fill='%237B2D8E' font-size='18' font-weight='bold'%3ETEIN*CC%3C/text%3E%3Ctext x='100' y='45' text-anchor='middle' fill='%237B2D8E' font-size='10'%3ECOOPERATION CENTER%3C/text%3E%3C/svg%3E" alt="TEIN*CC Logo">
                 </div>
-                <div class="project-title">
-                    <h1>AfgREN Network Engineers Workshop</h1>
-                    <div class="project-subtitle">Routing and Switching Basics</div>
-                </div>
-                <div class="funding-info">
-                    <strong>WP2 - 1st Call</strong><br>
-                    <small>Asi@Connect Project</small>
-                </div>
+                <nav>
+                    <a href="#overview">Overview</a>
+                    <a href="#objectives">Objectives</a>
+                    <a href="#outcomes">Outcomes</a>
+                    <a href="#impact">Impact</a>
+                </nav>
             </div>
         </div>
     </header>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <div class="nav-menu">
-                <a href="#overview">Overview</a>
-                <a href="#objectives">Objectives</a>
-                <a href="#activities">Activities</a>
-
-                <a href="#outcomes">Outcomes</a>
-                <a href="#partners">Partners</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h2>Building Afghanistan's Network Infrastructure</h2>
-            <p>A comprehensive 4-day capacity development workshop designed to enhance the technical skills of network engineers from Afghanistan's public universities, strengthening the AfgREN network and supporting the development of a robust National Research and Education Network.</p>
-            
-            <div class="stats-grid">
-                <div class="stat-card fade-in">
-                    <span class="stat-number">20</span>
-                    <div class="stat-label">Engineers Trained</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <span class="stat-number">4</span>
-                    <div class="stat-label">Training Days</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <span class="stat-number">90%</span>
-                    <div class="stat-label">Pass Rate</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <span class="stat-number">100%</span>
-                    <div class="stat-label">Success Rate</div>
-                </div>
-            </div>
+            <h1>Capacity Development Workshop</h1>
+            <p>Building foundational technical skills in routing and switching for Afghanistan's public universities network engineers through the AfgREN initiative</p>
+            <a href="#overview" class="cta-button">Learn More</a>
         </div>
     </section>
 
-    <!-- Overview -->
-    <section id="overview" class="section">
-        <div class="container">
-            <h2 class="section-title">Project Overview</h2>
-            <div class="content-grid">
-                <div class="content-card">
-                    <h3>Mission</h3>
-                    <p>To build foundational technical skills in routing and switching for IT engineers from Afghanistan's public universities involved in the AfgREN network, conducted as part of WP2 under Asi@Connect with technical and financial support from TEIN*CC.</p>
-                </div>
-                <div class="content-card">
-                    <h3>Scope</h3>
-                    <p>Intensive theoretical and hands-on training designed to improve participants' ability to manage and troubleshoot campus networks connected to AfgREN, supporting the long-term goal of building a robust NREN in Afghanistan.</p>
-                </div>
-                <div class="content-card">
-                    <h3>Location & Beneficiary</h3>
-                    <p><strong>Country:</strong> Afghanistan<br>
-                    <strong>Beneficiary:</strong> Public university IT staff<br>
-                    <strong>Contact:</strong> Dahanayake T.M.W. | +94 71 347 1644</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="container">
+        <div class="main-content">
+            <main>
+                <section id="overview" class="content-section">
+                    <h2>Project Overview</h2>
+                    <p>The Capacity Development Workshop for AfgREN Network Engineers was a comprehensive 4-day intensive training program designed to build foundational technical skills in routing and switching. Conducted under WP2 of the Asi@Connect initiative with support from TEIN*CC and the European Union, this workshop aimed to strengthen Afghanistan's National Research and Education Network (NREN) infrastructure.</p>
+                    
+                    <p>The project focused on training IT engineers from Afghanistan's public universities, providing them with essential knowledge and hands-on experience in network management and troubleshooting. This initiative represents a crucial step toward building a robust and sustainable educational network infrastructure in Afghanistan.</p>
+                </section>
 
-    <!-- Objectives -->
-    <section id="objectives" class="section">
-        <div class="container">
-            <h2 class="section-title">Project Objectives</h2>
-            <div class="content-grid">
-                <div class="content-card">
+                <section id="objectives" class="content-section">
+                    <h2>Project Objectives</h2>
                     <h3>Primary Objective</h3>
                     <p>To improve the technical capacity of network engineers managing AfgREN in Afghanistan's public universities through foundational knowledge in routing and switching.</p>
-                </div>
-                <div class="content-card">
+                    
                     <h3>Sub-Objectives</h3>
                     <ul>
                         <li>Train engineers in basic routing and switching theory and practices</li>
@@ -542,188 +626,296 @@
                         <li>Promote the use of modern networking software and diagnostics</li>
                         <li>Facilitate knowledge exchange and cooperation among university IT staff</li>
                     </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+                </section>
 
-    <!-- Activities -->
-    <section id="activities" class="section">
-        <div class="container">
-            <h2 class="section-title">Workshop Activities</h2>
-            <div class="content-grid">
-                <div class="content-card">
-                    <h3>Opening & Coordination</h3>
-                    <p>Formal inauguration by MoHE IT Director, emphasizing workshop relevance and stakeholder cooperation.</p>
-                </div>
-                <div class="content-card">
-                    <h3>4-Day Workshop Delivery</h3>
-                    <p>Structured lessons, lab-based learning, and group work focused on routing and switching using Cisco devices and simulators.</p>
-                </div>
-                <div class="content-card">
-                    <h3>Guest Presentations</h3>
-                    <p>AfgREN delegates explained the role of NRENs globally and AfgREN's current infrastructure and future plans.</p>
-                </div>
-                <div class="content-card">
-                    <h3>Assessment & Certification</h3>
-                    <p>Written evaluation on Day 4 with 90% achieving satisfactory scores, followed by certificate presentation.</p>
-                </div>
-                <div class="content-card">
-                    <h3>Feedback Collection</h3>
-                    <p>Structured questionnaire completed by all participants to assess satisfaction and identify future training needs.</p>
-                </div>
-                <div class="content-card">
-                    <h3>Networking Events</h3>
-                    <p>Group meals and social dinner to enhance cooperation and community-building among participants.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+                <section class="content-section">
+                    <h2>Workshop Activities</h2>
+                    <ul>
+                        <li><strong>Opening Ceremony:</strong> Formal inauguration by MoHE IT Director emphasizing workshop relevance</li>
+                        <li><strong>4-Day Intensive Training:</strong> Structured lessons with lab-based learning and group work</li>
+                        <li><strong>Guest Presentations:</strong> AfgREN delegates explained NREN roles and future infrastructure plans</li>
+                        <li><strong>Practical Assessments:</strong> Written evaluations measuring knowledge acquisition</li>
+                        <li><strong>Networking Events:</strong> Social activities to enhance cooperation and community building</li>
+                        <li><strong>Certification Ceremony:</strong> Recognition and certificates for successful participants</li>
+                    </ul>
+                </section>
 
-
-
-    <!-- Outcomes -->
-    <section id="outcomes" class="section">
-        <div class="container">
-            <h2 class="section-title">Key Outcomes</h2>
-            <div class="content-grid">
-                <div class="content-card">
-                    <h3>✓ Engineers Trained</h3>
-                    <p>20 Network Engineers from public universities received comprehensive training, enabling them to support their institution's network needs more effectively.</p>
-                </div>
-                <div class="content-card">
-                    <h3>✓ Skills Enhancement</h3>
-                    <p>Participants learned essential router and switch configuration and troubleshooting skills using modern networking tools.</p>
-                </div>
-                <div class="content-card">
-                    <h3>✓ Certification Success</h3>
-                    <p>90% of participants passed the written test and were certified by the Ministry of Higher Education.</p>
-                </div>
-                <div class="content-card">
-                    <h3>✓ High Satisfaction</h3>
-                    <p>Strong positive feedback recorded, with most participants expressing interest in more advanced training opportunities.</p>
-                </div>
-            </div>
-
-            <div style="margin-top: 3rem;">
-                <h3 style="color: #9F4B14; text-align: center; margin-bottom: 2rem;">Challenges & Future Directions</h3>
-                <div class="content-grid">
-                    <div class="content-card">
-                        <h3>Identified Challenges</h3>
-                        <ul>
-                            <li>Limited 4-day duration insufficient for comprehensive coverage</li>
-                            <li>Equipment constraints limiting individualized practice</li>
-                            <li>Need for follow-up training to build on foundations</li>
-                        </ul>
+                <section id="outcomes" class="content-section">
+                    <h2>Key Outcomes</h2>
+                    <div class="outcomes-grid">
+                        <div class="outcome-card">
+                            <div class="outcome-icon">👥</div>
+                            <h3>20 Engineers Trained</h3>
+                            <p>IT staff from 20 public universities received comprehensive training</p>
+                        </div>
+                        <div class="outcome-card">
+                            <div class="outcome-icon">🛠️</div>
+                            <h3>Enhanced Skills</h3>
+                            <p>Participants gained essential router and switch configuration abilities</p>
+                        </div>
+                        <div class="outcome-card">
+                            <div class="outcome-icon">📜</div>
+                            <h3>90% Pass Rate</h3>
+                            <p>Excellent performance with 90% achieving certification</p>
+                        </div>
+                        <div class="outcome-card">
+                            <div class="outcome-icon">⭐</div>
+                            <h3>High Satisfaction</h3>
+                            <p>Strong positive feedback with interest in advanced training</p>
+                        </div>
                     </div>
-                    <div class="content-card">
-                        <h3>Recommended Solutions</h3>
-                        <ul>
-                            <li>Intermediate and advanced workshop series</li>
-                            <li>Resource expansion with more tools and hardware</li>
-                            <li>Wider participation from additional institutions</li>
-                        </ul>
-                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Future Directions</h2>
+                    <h3>Planned Development</h3>
+                    <ul>
+                        <li><strong>Intermediate and Advanced Workshops:</strong> Follow-up training stages for continued skill development</li>
+                        <li><strong>Resource Expansion:</strong> Additional tools and hardware for enhanced hands-on experience</li>
+                        <li><strong>Wider Participation:</strong> Extended reach to more institutions and regions</li>
+                    </ul>
+                    
+                    <h3>Sustainable Development Goals</h3>
+                    <p>This project directly contributes to:</p>
+                    <ul>
+                        <li><strong>SDG 4:</strong> Quality Education - Enhancing technical education capabilities</li>
+                        <li><strong>SDG 9:</strong> Industry, Innovation and Infrastructure - Building robust network infrastructure</li>
+                    </ul>
+                </section>
+            </main>
+
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3>Project Details</h3>
+                    <p><strong>Category:</strong> WP2</p>
+                    <p><strong>Call:</strong> 1st Call</p>
+                    <p><strong>Duration:</strong> 4 Days</p>
+                    <p><strong>Budget:</strong> €27,645</p>
+                    <p><strong>Country:</strong> Afghanistan</p>
                 </div>
-            </div>
+
+                <div class="stat-card">
+                    <span class="stat-number">20</span>
+                    <span class="stat-label">Universities Participating</span>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-number">90%</span>
+                    <span class="stat-label">Success Rate</span>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>Partner Organizations</h3>
+                    <ul>
+                        <li>Manaka Technology Services (MTS)</li>
+                        <li>TEIN*CC / Asi@Connect</li>
+                        <li>Ministry of Higher Education (MoHE), Afghanistan</li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>Key Technologies</h3>
+                    <ul>
+                        <li>Cisco IOS Commands</li>
+                        <li>Router Configuration</li>
+                        <li>Switch Management</li>
+                        <li>Network Diagnostics</li>
+                        <li>Troubleshooting Tools</li>
+                    </ul>
+                </div>
+            </aside>
         </div>
-    </section>
+    </div>
 
-    <!-- Partners -->
-    <section id="partners" class="section">
-        <div class="container">
-            <h2 class="section-title">Partner Organizations</h2>
-            <div class="partners-grid">
-                <div class="partner-card">
-                    <div class="partner-logo">MTS</div>
-                    <h3>Manaka Technology Services</h3>
-                    <p>Lead implementing organization providing technical expertise and project management.</p>
-                </div>
-                <div class="partner-card">
-                    <div class="partner-logo">T*CC</div>
-                    <h3>TEIN*CC / Asi@Connect</h3>
-                    <p>Technical and financial support provider enabling the workshop implementation.</p>
-                </div>
-                <div class="partner-card">
-                    <div class="partner-logo">MoHE</div>
-                    <h3>Ministry of Higher Education</h3>
-                    <p>Government partner providing institutional support and participant certification.</p>
-                </div>
-            </div>
-
-            <!-- SDG Alignment -->
-            <div style="margin-top: 4rem;">
-                <h3 style="color: #9F4B14; text-align: center; margin-bottom: 2rem;">Supporting UN Sustainable Development Goals</h3>
-                <div class="sdg-grid">
-                    <div class="sdg-card">
-                        <div class="sdg-number">4</div>
-                        <h3>Quality Education</h3>
-                        <p>Enhancing technical education and skills development</p>
-                    </div>
-                    <div class="sdg-card">
-                        <div class="sdg-number">9</div>
-                        <h3>Industry, Innovation & Infrastructure</h3>
-                        <p>Building resilient network infrastructure and promoting innovation</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Project Information</h3>
-                    <p>WP2 - 1st Call<br>
-                    Capacity Development Workshop<br>
-                    AfgREN Network Engineers</p>
+                    <h4>About AfgREN</h4>
+                    <p>Afghanistan Research and Education Network - Building digital infrastructure for education and research advancement.</p>
                 </div>
-
                 <div class="footer-section">
-                    <h3>Funding</h3>
-                    <p>European Union<br>
-                    Asi@Connect Project<br>
-                    TEIN*CC Support</p>
+                    <h4>Partners</h4>
+                    <p>Supported by Asi@Connect, European Union, and TEIN*CC in collaboration with Afghanistan's Ministry of Higher Education.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Impact</h4>
+                    <p>Contributing to SDG 4 (Quality Education) and SDG 9 (Industry, Innovation and Infrastructure) through capacity building.</p>
                 </div>
             </div>
-
-            <div class="disclaimer">
-                <p><strong>Disclaimer:</strong> This publication has been produced with co-funding of the European Union for the Asi@Connect Project under Grant contract ACA 2016-376-562. The contents of this document are the sole responsibility of AfgREN Workshop Project and can under no circumstances be regarded as reflecting the position of the European Union.</p>
-            </div>
-
-            <p style="margin-top: 2rem; color: #F28C28;">&copy; 2024 AfgREN Workshop Project.</p>
+            <p>&copy; 2025 AfgREN Capacity Development Workshop. Part of the Asi@Connect initiative.</p>
         </div>
     </footer>
 
     <script>
-        // Simple animation on scroll
-        function animateOnScroll() {
-            const elements = document.querySelectorAll('.content-card, .stat-card, .partner-card');
-            
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.classList.add('fade-in');
+        // Enhanced mobile navigation
+        const header = document.querySelector('header');
+        const nav = document.querySelector('nav');
+        
+        // Create mobile menu button
+        const mobileMenuBtn = document.createElement('button');
+        mobileMenuBtn.innerHTML = '☰';
+        mobileMenuBtn.className = 'mobile-menu-btn';
+        mobileMenuBtn.style.cssText = `
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        `;
+        
+        // Add mobile menu styles
+        const mobileStyles = document.createElement('style');
+        mobileStyles.textContent = `
+            @media (max-width: 640px) {
+                .mobile-menu-btn {
+                    display: block !important;
                 }
+                
+                .mobile-menu-btn:hover {
+                    background-color: rgba(255, 255, 255, 0.2) !important;
+                }
+                
+                nav {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background: linear-gradient(135deg, var(--primary), var(--secondary));
+                    flex-direction: column;
+                    padding: 1rem;
+                    box-shadow: 0 2px 10px var(--shadow);
+                    z-index: 1000;
+                }
+                
+                nav.mobile-open {
+                    display: flex !important;
+                }
+                
+                nav a {
+                    padding: 0.75rem 1rem;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    width: 100%;
+                    text-align: center;
+                }
+                
+                nav a:last-child {
+                    border-bottom: none;
+                }
+                
+                .header-content {
+                    position: relative;
+                }
+            }
+        `;
+        document.head.appendChild(mobileStyles);
+        
+        // Insert mobile menu button
+        document.querySelector('.header-content').appendChild(mobileMenuBtn);
+        
+        // Mobile menu toggle
+        let mobileMenuOpen = false;
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenuOpen = !mobileMenuOpen;
+            nav.classList.toggle('mobile-open', mobileMenuOpen);
+            mobileMenuBtn.innerHTML = mobileMenuOpen ? '✕' : '☰';
+        });
+        
+        // Close mobile menu when clicking nav links
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('mobile-open');
+                mobileMenuOpen = false;
+                mobileMenuBtn.innerHTML = '☰';
             });
-        }
-
-        window.addEventListener('scroll', animateOnScroll);
-        window.addEventListener('load', animateOnScroll);
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (mobileMenuOpen && !header.contains(e.target)) {
+                nav.classList.remove('mobile-open');
+                mobileMenuOpen = false;
+                mobileMenuBtn.innerHTML = '☰';
+            }
+        });
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                header.style.background = 'linear-gradient(135deg, rgba(242, 140, 40, 0.95), rgba(232, 140, 45, 0.95))';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Animate cards on scroll with better performance
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.content-section, .outcome-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+        
+        // Handle orientation changes
+        window.addEventListener('orientationchange', function() {
+            setTimeout(() => {
+                // Close mobile menu on orientation change
+                if (mobileMenuOpen) {
+                    nav.classList.remove('mobile-open');
+                    mobileMenuOpen = false;
+                    mobileMenuBtn.innerHTML = '☰';
+                }
+                
+                // Recalculate viewport height
+                document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+            }, 100);
+        });
+        
+        // Set initial viewport height
+        document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+        
+        // Handle resize events
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+            }, 100);
         });
     </script>
 </body>
