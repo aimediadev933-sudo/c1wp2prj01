@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfgREN Network Engineers Workshop - Routing & Switching Basics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #1D1D1B;
+            background-color: #FCF5EC;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #F28C28 0%, #E88C2D 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 15px rgba(242, 140, 40, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #F28C28;
+            font-size: 1.2rem;
+        }
+
+        .project-title {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .project-title h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .project-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .funding-info {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Navigation */
+        nav {
+            background: #9F4B14;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(242, 140, 40, 0.1), rgba(232, 140, 45, 0.1));
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.2rem;
+            color: #9F4B14;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(242, 140, 40, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #F28C28;
+            display: block;
+        }
+
+        .stat-label {
+            color: #9F4B14;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section:nth-child(even) {
+            background: rgba(242, 140, 40, 0.05);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #9F4B14;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, #F28C28, #E88C2D);
+            display: block;
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .content-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(242, 140, 40, 0.1);
+            border-left: 5px solid #F28C28;
+        }
+
+        .content-card h3 {
+            color: #9F4B14;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content-card li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .content-card li::before {
+            content: '→';
+            color: #F28C28;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Budget Table */
+        .budget-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(242, 140, 40, 0.1);
+            margin: 2rem 0;
+        }
+
+        .budget-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .budget-table th {
+            background: linear-gradient(135deg, #F28C28, #E88C2D);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .budget-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .budget-table tr:hover {
+            background: rgba(242, 140, 40, 0.05);
+        }
+
+        .total-row {
+            background: rgba(242, 140, 40, 0.1);
+            font-weight: bold;
+        }
+
+        /* Partners */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .partner-card {
+            background: white;
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(242, 140, 40, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .partner-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #F28C28, #E88C2D);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        /* SDGs */
+        .sdg-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .sdg-card {
+            background: linear-gradient(135deg, #F28C28, #E88C2D);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .sdg-card:hover {
+            transform: scale(1.05);
+        }
+
+        .sdg-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #1D1D1B;
+            color: white;
+            padding: 3rem 0 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #F28C28;
+            margin-bottom: 1rem;
+        }
+
+        .disclaimer {
+            background: rgba(242, 140, 40, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .project-title h1 {
+                font-size: 2rem;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .project-title h1 {
+                font-size: 1.6rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .budget-table {
+                overflow-x: auto;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-placeholder">EU</div>
+                    <div class="logo-placeholder">A@C</div>
+                </div>
+                <div class="project-title">
+                    <h1>AfgREN Network Engineers Workshop</h1>
+                    <div class="project-subtitle">Routing and Switching Basics</div>
+                </div>
+                <div class="funding-info">
+                    <strong>WP2 - 1st Call</strong><br>
+                    <small>Asi@Connect Project</small>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-menu">
+                <a href="#overview">Overview</a>
+                <a href="#objectives">Objectives</a>
+                <a href="#activities">Activities</a>
+
+                <a href="#outcomes">Outcomes</a>
+                <a href="#partners">Partners</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Building Afghanistan's Network Infrastructure</h2>
+            <p>A comprehensive 4-day capacity development workshop designed to enhance the technical skills of network engineers from Afghanistan's public universities, strengthening the AfgREN network and supporting the development of a robust National Research and Education Network.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <span class="stat-number">20</span>
+                    <div class="stat-label">Engineers Trained</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number">4</span>
+                    <div class="stat-label">Training Days</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number">90%</span>
+                    <div class="stat-label">Pass Rate</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number">100%</span>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview -->
+    <section id="overview" class="section">
+        <div class="container">
+            <h2 class="section-title">Project Overview</h2>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>Mission</h3>
+                    <p>To build foundational technical skills in routing and switching for IT engineers from Afghanistan's public universities involved in the AfgREN network, conducted as part of WP2 under Asi@Connect with technical and financial support from TEIN*CC.</p>
+                </div>
+                <div class="content-card">
+                    <h3>Scope</h3>
+                    <p>Intensive theoretical and hands-on training designed to improve participants' ability to manage and troubleshoot campus networks connected to AfgREN, supporting the long-term goal of building a robust NREN in Afghanistan.</p>
+                </div>
+                <div class="content-card">
+                    <h3>Location & Beneficiary</h3>
+                    <p><strong>Country:</strong> Afghanistan<br>
+                    <strong>Beneficiary:</strong> Public university IT staff<br>
+                    <strong>Contact:</strong> Dahanayake T.M.W. | +94 71 347 1644</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objectives -->
+    <section id="objectives" class="section">
+        <div class="container">
+            <h2 class="section-title">Project Objectives</h2>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>Primary Objective</h3>
+                    <p>To improve the technical capacity of network engineers managing AfgREN in Afghanistan's public universities through foundational knowledge in routing and switching.</p>
+                </div>
+                <div class="content-card">
+                    <h3>Sub-Objectives</h3>
+                    <ul>
+                        <li>Train engineers in basic routing and switching theory and practices</li>
+                        <li>Enable participants to configure and troubleshoot routers and switches</li>
+                        <li>Introduce basic Cisco IOS commands and tools</li>
+                        <li>Promote the use of modern networking software and diagnostics</li>
+                        <li>Facilitate knowledge exchange and cooperation among university IT staff</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities -->
+    <section id="activities" class="section">
+        <div class="container">
+            <h2 class="section-title">Workshop Activities</h2>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>Opening & Coordination</h3>
+                    <p>Formal inauguration by MoHE IT Director, emphasizing workshop relevance and stakeholder cooperation.</p>
+                </div>
+                <div class="content-card">
+                    <h3>4-Day Workshop Delivery</h3>
+                    <p>Structured lessons, lab-based learning, and group work focused on routing and switching using Cisco devices and simulators.</p>
+                </div>
+                <div class="content-card">
+                    <h3>Guest Presentations</h3>
+                    <p>AfgREN delegates explained the role of NRENs globally and AfgREN's current infrastructure and future plans.</p>
+                </div>
+                <div class="content-card">
+                    <h3>Assessment & Certification</h3>
+                    <p>Written evaluation on Day 4 with 90% achieving satisfactory scores, followed by certificate presentation.</p>
+                </div>
+                <div class="content-card">
+                    <h3>Feedback Collection</h3>
+                    <p>Structured questionnaire completed by all participants to assess satisfaction and identify future training needs.</p>
+                </div>
+                <div class="content-card">
+                    <h3>Networking Events</h3>
+                    <p>Group meals and social dinner to enhance cooperation and community-building among participants.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Outcomes -->
+    <section id="outcomes" class="section">
+        <div class="container">
+            <h2 class="section-title">Key Outcomes</h2>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>✓ Engineers Trained</h3>
+                    <p>20 Network Engineers from public universities received comprehensive training, enabling them to support their institution's network needs more effectively.</p>
+                </div>
+                <div class="content-card">
+                    <h3>✓ Skills Enhancement</h3>
+                    <p>Participants learned essential router and switch configuration and troubleshooting skills using modern networking tools.</p>
+                </div>
+                <div class="content-card">
+                    <h3>✓ Certification Success</h3>
+                    <p>90% of participants passed the written test and were certified by the Ministry of Higher Education.</p>
+                </div>
+                <div class="content-card">
+                    <h3>✓ High Satisfaction</h3>
+                    <p>Strong positive feedback recorded, with most participants expressing interest in more advanced training opportunities.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem;">
+                <h3 style="color: #9F4B14; text-align: center; margin-bottom: 2rem;">Challenges & Future Directions</h3>
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h3>Identified Challenges</h3>
+                        <ul>
+                            <li>Limited 4-day duration insufficient for comprehensive coverage</li>
+                            <li>Equipment constraints limiting individualized practice</li>
+                            <li>Need for follow-up training to build on foundations</li>
+                        </ul>
+                    </div>
+                    <div class="content-card">
+                        <h3>Recommended Solutions</h3>
+                        <ul>
+                            <li>Intermediate and advanced workshop series</li>
+                            <li>Resource expansion with more tools and hardware</li>
+                            <li>Wider participation from additional institutions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section id="partners" class="section">
+        <div class="container">
+            <h2 class="section-title">Partner Organizations</h2>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <div class="partner-logo">MTS</div>
+                    <h3>Manaka Technology Services</h3>
+                    <p>Lead implementing organization providing technical expertise and project management.</p>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-logo">T*CC</div>
+                    <h3>TEIN*CC / Asi@Connect</h3>
+                    <p>Technical and financial support provider enabling the workshop implementation.</p>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-logo">MoHE</div>
+                    <h3>Ministry of Higher Education</h3>
+                    <p>Government partner providing institutional support and participant certification.</p>
+                </div>
+            </div>
+
+            <!-- SDG Alignment -->
+            <div style="margin-top: 4rem;">
+                <h3 style="color: #9F4B14; text-align: center; margin-bottom: 2rem;">Supporting UN Sustainable Development Goals</h3>
+                <div class="sdg-grid">
+                    <div class="sdg-card">
+                        <div class="sdg-number">4</div>
+                        <h3>Quality Education</h3>
+                        <p>Enhancing technical education and skills development</p>
+                    </div>
+                    <div class="sdg-card">
+                        <div class="sdg-number">9</div>
+                        <h3>Industry, Innovation & Infrastructure</h3>
+                        <p>Building resilient network infrastructure and promoting innovation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Project Information</h3>
+                    <p>WP2 - 1st Call<br>
+                    Capacity Development Workshop<br>
+                    AfgREN Network Engineers</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Funding</h3>
+                    <p>European Union<br>
+                    Asi@Connect Project<br>
+                    TEIN*CC Support</p>
+                </div>
+            </div>
+
+            <div class="disclaimer">
+                <p><strong>Disclaimer:</strong> This publication has been produced with co-funding of the European Union for the Asi@Connect Project under Grant contract ACA 2016-376-562. The contents of this document are the sole responsibility of AfgREN Workshop Project and can under no circumstances be regarded as reflecting the position of the European Union.</p>
+            </div>
+
+            <p style="margin-top: 2rem; color: #F28C28;">&copy; 2024 AfgREN Workshop Project.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.content-card, .stat-card, .partner-card');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('fade-in');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
